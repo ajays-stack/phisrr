@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Phishing Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo"><a href="{{ url_for('home') }}">Phishrr</a></h1>
+      <nav class="nav-menu d-flex align-items-center">
+        <a href="{{ url_for('home') }}" class="active">Home</a>
+    
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Resources</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/?hl=en" target="_blank">Report Phishing</a></li>
+            <li><a href="https://www.phishingbox.com/phishing-iq-test" target="_blank">Take Quiz</a></li>
+          </ul>
+        </div>
+        <a href="static/assets/Phishing Website Identification.pdf" class="download-btn" download="phishing-guide">
+          Download Guide <i class='bx bxs-download'></i>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1>Protect Yourself From Phishing Attacks</h1>
+          <p class="lead mb-4">Instantly check if a website is legitimate or a potential threat with our advanced detection system.</p>
+          <form action="/result" method="POST" class="url-form">
+            <div class="input-group">
+              <input type="url" name="name" class="form-control" placeholder="Enter website URL (https://...)" required>
+              <button type="submit" class="btn btn-primary">Analyze</button>
+            </div>
+          </form>
+          {% if name %}
+          <div class="result-box mt-4 {% if name[3] %}safe{% else %}unsafe{% endif %}">
+            <h3>Analysis Result</h3>
+            <p class="url">{{name[0]}}</p>
+            <div class="status">Website is <span>{{name[1]}}</span> to use</div>
+            <a href="{{name[0]}}" target="_blank" class="btn {% if name[3] %}btn-success{% else %}btn-danger{% endif %}">
+              {{name[2]}}
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+          <img src="static/assets/img/Phishing.gif" class="img-fluid" alt="Phishing Detection">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="feature-box">
+            <i class='bx bx-shield-quarter'></i>
+            <h3>Advanced Detection</h3>
+            <p>Uses machine learning to identify sophisticated phishing attempts</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="feature-box">
+            <i class='bx bx-time-five'></i>
+            <h3>Real-time Analysis</h3>
+            <p>Get instant results about any suspicious website</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="feature-box">
+            <i class='bx bx-data'></i>
+            <h3>Comprehensive Checks</h3>
+            <p>Multiple security parameters analyzed for accuracy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ======= Additional Information Section ======= -->
+  <section class="additional-info py-5 bg-light">
+    <div class="container">
+      <h2 class="mb-4">Why Phishing Detection Matters</h2>
+      <p>Phishing attacks are one of the most common and dangerous cyber threats today. They can lead to identity theft, financial loss, and unauthorized access to sensitive information. Our detection system helps protect you by analyzing URLs and identifying potential threats before you interact with them.</p>
+      <h3 class="mt-5 mb-3">How It Works</h3>
+      <ul>
+        <li><strong>Feature Extraction:</strong> The system extracts multiple features from the URL and webpage content to analyze its legitimacy.</li>
+        <li><strong>Machine Learning Models:</strong> Advanced models trained on large datasets classify URLs as safe or phishing.</li>
+        <li><strong>Real-time Feedback:</strong> Users get instant results to make informed decisions about website safety.</li>
+      </ul>
+      <h3 class="mt-5 mb-3">Tips to Avoid Phishing</h3>
+      <ul>
+        <li>Always verify the URL before clicking on links in emails or messages.</li>
+        <li>Look for HTTPS and valid security certificates on websites.</li>
+        <li>Be cautious of unsolicited requests for personal information.</li>
+        <li>Keep your software and antivirus updated regularly.</li>
+      </ul>
+      <h3 class="mt-5 mb-3">Resources</h3>
+      <p>For more information and to report phishing attempts, visit:</p>
+      <ul>
+        <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/?hl=en" target="_blank">Google Safe Browsing Report</a></li>
+        <li><a href="https://www.phishingbox.com/phishing-iq-test" target="_blank">Phishing IQ Test</a></li>
+        <li><a href="https://www.intradyn.com/phishing-quiz/" target="_blank">Intradyn Phishing Quiz</a></li>
+      </ul>
+    </div>
+  </section>
+
+</body>
+</html>
